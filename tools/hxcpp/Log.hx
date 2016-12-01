@@ -112,7 +112,17 @@ class Log
    {
       if (printMutex!=null)
         printMutex.acquire();
-      Sys.println(stripColor(message));
+      message= stripColor(message);
+      var MAX_LEN = 1000;
+      if(message.length < MAX_LEN)
+         Sys.println(message);
+      else {
+         var i = 0;
+         while (i<message.length ){
+            Sys.println(message.substr(i, MAX_LEN));
+            i+= MAX_LEN;
+         }
+      }
       if (printMutex!=null)
          printMutex.release();
    }
